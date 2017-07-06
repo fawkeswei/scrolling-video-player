@@ -99,9 +99,9 @@ static void * PlayerContext = &PlayerContext;
             case AVPlayerItemStatusReadyToPlay: {
                 self.playbackToggleButton.enabled = YES;
                 self.playbackSeekSlider.enabled = YES;
+                
+                [self.playbackToggleButton setTitle:@"Play" forState:UIControlStateNormal];
                 self.playbackSeekSlider.maximumValue = CMTimeGetSeconds(self.player.currentItem.duration);
-                self.imageView.hidden = YES;
-                [self.player play];
                 break;
             }
             case AVPlayerItemStatusFailed: {
@@ -126,10 +126,12 @@ static void * PlayerContext = &PlayerContext;
                 [self.playbackToggleButton setTitle:@"Play" forState:UIControlStateNormal];
                 break;
             }
-            case AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate:
+            case AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate: {
             case AVPlayerTimeControlStatusPlaying:
+                self.imageView.hidden = YES;
                 [self.playbackToggleButton setTitle:@"Pause" forState:UIControlStateNormal];
                 break;
+            }
             default:
                 break;
         }
