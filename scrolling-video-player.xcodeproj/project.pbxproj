@@ -17,6 +17,7 @@
 		91F8E6971F0E30F8003DD582 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F8E6951F0E30F8003DD582 /* LaunchScreen.storyboard */; };
 		91F8E6A21F0E30F8003DD582 /* scrolling_video_playerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F8E6A11F0E30F8003DD582 /* scrolling_video_playerTests.m */; };
 		91F8E6B11F0E34AB003DD582 /* VideoMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F8E6B01F0E34AB003DD582 /* VideoMetadata.m */; };
+		91F8E6B41F0E4D60003DD582 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F8E6B31F0E4D60003DD582 /* PlayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		91F8E6A31F0E30F8003DD582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91F8E6AF1F0E34AB003DD582 /* VideoMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoMetadata.h; sourceTree = "<group>"; };
 		91F8E6B01F0E34AB003DD582 /* VideoMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoMetadata.m; sourceTree = "<group>"; };
+		91F8E6B21F0E4D60003DD582 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		91F8E6B31F0E4D60003DD582 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 				91F8E6881F0E30F7003DD582 /* RootViewController.m */,
 				91F8E68A1F0E30F7003DD582 /* DataViewController.h */,
 				91F8E68B1F0E30F7003DD582 /* DataViewController.m */,
+				91F8E6B21F0E4D60003DD582 /* PlayerView.h */,
+				91F8E6B31F0E4D60003DD582 /* PlayerView.m */,
 				91F8E68D1F0E30F7003DD582 /* ModelController.h */,
 				91F8E68E1F0E30F7003DD582 /* ModelController.m */,
 				91F8E6AF1F0E34AB003DD582 /* VideoMetadata.h */,
@@ -231,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91F8E68C1F0E30F7003DD582 /* DataViewController.m in Sources */,
+				91F8E6B41F0E4D60003DD582 /* PlayerView.m in Sources */,
 				91F8E6861F0E30F7003DD582 /* AppDelegate.m in Sources */,
 				91F8E68F1F0E30F7003DD582 /* ModelController.m in Sources */,
 				91F8E6831F0E30F7003DD582 /* main.m in Sources */,
