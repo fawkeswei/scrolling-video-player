@@ -41,7 +41,7 @@ static void * PlayerContext = &PlayerContext;
     
     self.playerItem = [AVPlayerItem playerItemWithURL:self.dataObject.videoUrl];
     [self.playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerItemContext];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
     
     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
     [self.player addObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerContext];
@@ -68,6 +68,17 @@ static void * PlayerContext = &PlayerContext;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)playerItemDidFinishPlaying:(NSNotification *)notification {
+    if ([self.parentViewController isKindOfClass:[UIPageViewController class]]) {
+        UIPageViewController *pageViewController = (UIPageViewController *)self.parentViewController;
+        
+        DataViewController *nextViewController = (DataViewController *)[pageViewController.dataSource pageViewController:pageViewController viewControllerAfterViewController:self];
+        if (nextViewController) {
+            [pageViewController setViewControllers:@[nextViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        }
+    }
 }
 
 #pragma mark - IBActions
@@ -144,6 +155,7 @@ static void * PlayerContext = &PlayerContext;
 
 - (void)dealloc {
     [self.playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
     [self.player removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus))];
     [self.player removeTimeObserver:self.periodicTimeObserver];
 }
