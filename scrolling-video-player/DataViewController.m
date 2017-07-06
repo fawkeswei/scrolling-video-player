@@ -16,10 +16,13 @@
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *playbackToggleButton;
-
+@property (weak, nonatomic) IBOutlet UISlider *playbackSeekSlider;
 
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerItem *playerItem;
+
+@property (nonatomic, strong) id periodicTimeObserver;
+
 @end
 
 @implementation DataViewController
@@ -43,6 +46,11 @@ static void * PlayerContext = &PlayerContext;
     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
     [self.player addObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerContext];
     
+    __weak typeof(self) weakSelf = self;
+    self.periodicTimeObserver = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 30) queue:NULL usingBlock:^(CMTime time) {
+        [weakSelf.playbackSeekSlider setValue:CMTimeGetSeconds(time) animated:YES];
+    }];
+    
     
     [self.playerView setPlayer:self.player];
     
@@ -57,6 +65,13 @@ static void * PlayerContext = &PlayerContext;
     });
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - IBActions
+
 - (IBAction)togglePlayback:(id)sender {
     if (self.player.status == AVPlayerStatusReadyToPlay) {
         if (self.player.timeControlStatus == AVPlayerTimeControlStatusPaused) {
@@ -68,9 +83,11 @@ static void * PlayerContext = &PlayerContext;
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)seek:(UISlider *)slider {
+    [self.player.currentItem cancelPendingSeeks];
+    
+    CMTime time = CMTimeMake(slider.value, 1);
+    [self.player.currentItem seekToTime:time];
 }
 
 #pragma mark - KVO
@@ -81,6 +98,8 @@ static void * PlayerContext = &PlayerContext;
         switch (status) {
             case AVPlayerItemStatusReadyToPlay: {
                 self.playbackToggleButton.enabled = YES;
+                self.playbackSeekSlider.enabled = YES;
+                self.playbackSeekSlider.maximumValue = CMTimeGetSeconds(self.player.currentItem.duration);
                 [self.player play];
                 break;
             }
@@ -88,11 +107,13 @@ static void * PlayerContext = &PlayerContext;
                 // Failed. Examine AVPlayerItem.error
                 NSLog(@"Failed. Examine AVPlayerItem.error");
                 self.playbackToggleButton.enabled = NO;
+                self.playbackSeekSlider.enabled = NO;
                 break;
             }
             case AVPlayerItemStatusUnknown: {
                 // Not ready
                 self.playbackToggleButton.enabled = NO;
+                self.playbackSeekSlider.enabled = NO;
                 break;
             }
         }
@@ -121,6 +142,7 @@ static void * PlayerContext = &PlayerContext;
 - (void)dealloc {
     [self.playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
     [self.player removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus))];
+    [self.player removeTimeObserver:self.periodicTimeObserver];
 }
 
 @end

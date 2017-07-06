@@ -58,8 +58,11 @@
                                             <action selector="togglePlayback:" destination="S4R-Ja-viH" eventType="touchUpInside" id="ddj-dG-POs"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-eA-cZz">
+                                    <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-eA-cZz">
                                         <rect key="frame" x="86" y="0.0" width="271" height="45"/>
+                                        <connections>
+                                            <action selector="seek:" destination="S4R-Ja-viH" eventType="valueChanged" id="Wx7-U8-IdG"/>
+                                        </connections>
                                     </slider>
                                 </subviews>
                                 <constraints>
@@ -84,6 +87,7 @@
                     </view>
                     <connections>
                         <outlet property="imageView" destination="eA4-xf-ESG" id="Vha-Gq-vOB"/>
+                        <outlet property="playbackSeekSlider" destination="6FU-eA-cZz" id="Nm3-1G-61G"/>
                         <outlet property="playbackToggleButton" destination="r2P-dh-cLt" id="STW-7Z-H0W"/>
                         <outlet property="playerView" destination="wnG-gf-y6X" id="mWL-43-6Ww"/>
                     </connections>
