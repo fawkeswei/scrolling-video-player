@@ -15,20 +15,37 @@
 
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton *playbackToggleButton;
+
 
 @property (nonatomic, strong) AVPlayer *player;
-
+@property (nonatomic, strong) AVPlayerItem *playerItem;
 @end
 
 @implementation DataViewController
 
+static void * PlayerItemContext = &PlayerItemContext;
+static void * PlayerContext = &PlayerContext;
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.player pause];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:self.dataObject.videoUrl];
+    self.playerItem = [AVPlayerItem playerItemWithURL:self.dataObject.videoUrl];
+    [self.playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerItemContext];
 
-    self.player = [AVPlayer playerWithPlayerItem:item];
+    
+    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    [self.player addObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerContext];
+    
+    
     [self.playerView setPlayer:self.player];
+    
     
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
@@ -40,10 +57,70 @@
     });
 }
 
+- (IBAction)togglePlayback:(id)sender {
+    if (self.player.status == AVPlayerStatusReadyToPlay) {
+        if (self.player.timeControlStatus == AVPlayerTimeControlStatusPaused) {
+            [self.player play];
+        }
+        else {
+            [self.player pause];
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == &PlayerItemContext && [keyPath isEqualToString:NSStringFromSelector(@selector(status))]) {
+        AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
+        switch (status) {
+            case AVPlayerItemStatusReadyToPlay: {
+                self.playbackToggleButton.enabled = YES;
+                [self.player play];
+                break;
+            }
+            case AVPlayerItemStatusFailed: {
+                // Failed. Examine AVPlayerItem.error
+                NSLog(@"Failed. Examine AVPlayerItem.error");
+                self.playbackToggleButton.enabled = NO;
+                break;
+            }
+            case AVPlayerItemStatusUnknown: {
+                // Not ready
+                self.playbackToggleButton.enabled = NO;
+                break;
+            }
+        }
+    }
+    else if (context == &PlayerContext && [keyPath isEqualToString:NSStringFromSelector(@selector(timeControlStatus))]) {
+        AVPlayerTimeControlStatus status = [change[NSKeyValueChangeNewKey] integerValue];
+        switch (status) {
+            case AVPlayerTimeControlStatusPaused: {
+                [self.playbackToggleButton setTitle:@"Play" forState:UIControlStateNormal];
+                break;
+            }
+            case AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate:
+            case AVPlayerTimeControlStatusPlaying:
+                [self.playbackToggleButton setTitle:@"Pause" forState:UIControlStateNormal];
+                break;
+            default:
+                break;
+        }
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+}
+
+- (void)dealloc {
+    [self.playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
+    [self.player removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus))];
 }
 
 @end

@@ -42,18 +42,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wnG-gf-y6X" customClass="PlayerView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eA4-xf-ESG">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eA4-xf-ESG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mI-uI-sGq">
                                 <rect key="frame" x="10" y="613" width="355" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2P-dh-cLt">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2P-dh-cLt">
                                         <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="88" id="EI0-sS-AWL"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Loading..."/>
+                                        <connections>
+                                            <action selector="togglePlayback:" destination="S4R-Ja-viH" eventType="touchUpInside" id="ddj-dG-POs"/>
+                                        </connections>
                                     </button>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-eA-cZz">
                                         <rect key="frame" x="86" y="0.0" width="271" height="45"/>
@@ -81,6 +84,7 @@
                     </view>
                     <connections>
                         <outlet property="imageView" destination="eA4-xf-ESG" id="Vha-Gq-vOB"/>
+                        <outlet property="playbackToggleButton" destination="r2P-dh-cLt" id="STW-7Z-H0W"/>
                         <outlet property="playerView" destination="wnG-gf-y6X" id="mWL-43-6Ww"/>
                     </connections>
                 </viewController>
