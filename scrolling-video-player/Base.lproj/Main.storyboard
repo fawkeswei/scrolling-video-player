@@ -46,20 +46,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mI-uI-sGq">
-                                <rect key="frame" x="10" y="613" width="355" height="44"/>
+                                <rect key="frame" x="10" y="613" width="335" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2P-dh-cLt">
-                                        <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="88" id="EI0-sS-AWL"/>
+                                            <constraint firstAttribute="width" constant="100" id="EI0-sS-AWL"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Loading..."/>
                                         <connections>
                                             <action selector="togglePlayback:" destination="S4R-Ja-viH" eventType="touchUpInside" id="ddj-dG-POs"/>
                                         </connections>
                                     </button>
                                     <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-eA-cZz">
-                                        <rect key="frame" x="86" y="0.0" width="271" height="45"/>
+                                        <rect key="frame" x="98" y="0.0" width="239" height="45"/>
                                         <connections>
                                             <action selector="seek:" destination="S4R-Ja-viH" eventType="valueChanged" id="Wx7-U8-IdG"/>
                                         </connections>
@@ -80,7 +81,7 @@
                             <constraint firstAttribute="trailing" secondItem="wnG-gf-y6X" secondAttribute="trailing" id="P2l-qa-Kg9"/>
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="3mI-uI-sGq" secondAttribute="bottom" constant="10" id="QZK-jj-nmZ"/>
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="wnG-gf-y6X" secondAttribute="bottom" id="Vpe-Qm-SDT"/>
-                            <constraint firstAttribute="trailing" secondItem="3mI-uI-sGq" secondAttribute="trailing" constant="10" id="gZc-qX-h9o"/>
+                            <constraint firstAttribute="trailing" secondItem="3mI-uI-sGq" secondAttribute="trailing" constant="30" id="gZc-qX-h9o"/>
                             <constraint firstItem="eA4-xf-ESG" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" id="kNl-Zo-8Xn"/>
                             <constraint firstItem="wnG-gf-y6X" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="o75-bx-nk5"/>
                         </constraints>
