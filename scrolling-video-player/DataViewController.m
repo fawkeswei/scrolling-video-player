@@ -100,6 +100,7 @@ static void * PlayerContext = &PlayerContext;
                 self.playbackToggleButton.enabled = YES;
                 self.playbackSeekSlider.enabled = YES;
                 self.playbackSeekSlider.maximumValue = CMTimeGetSeconds(self.player.currentItem.duration);
+                self.imageView.hidden = YES;
                 [self.player play];
                 break;
             }
