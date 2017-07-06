@@ -16,6 +16,7 @@
 		91F8E6941F0E30F8003DD582 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F8E6931F0E30F8003DD582 /* Assets.xcassets */; };
 		91F8E6971F0E30F8003DD582 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F8E6951F0E30F8003DD582 /* LaunchScreen.storyboard */; };
 		91F8E6A21F0E30F8003DD582 /* scrolling_video_playerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F8E6A11F0E30F8003DD582 /* scrolling_video_playerTests.m */; };
+		91F8E6B11F0E34AB003DD582 /* VideoMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F8E6B01F0E34AB003DD582 /* VideoMetadata.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		91F8E69D1F0E30F8003DD582 /* scrolling-video-playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "scrolling-video-playerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F8E6A11F0E30F8003DD582 /* scrolling_video_playerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scrolling_video_playerTests.m; sourceTree = "<group>"; };
 		91F8E6A31F0E30F8003DD582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91F8E6AF1F0E34AB003DD582 /* VideoMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoMetadata.h; sourceTree = "<group>"; };
+		91F8E6B01F0E34AB003DD582 /* VideoMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoMetadata.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 				91F8E68B1F0E30F7003DD582 /* DataViewController.m */,
 				91F8E68D1F0E30F7003DD582 /* ModelController.h */,
 				91F8E68E1F0E30F7003DD582 /* ModelController.m */,
+				91F8E6AF1F0E34AB003DD582 /* VideoMetadata.h */,
+				91F8E6B01F0E34AB003DD582 /* VideoMetadata.m */,
 				91F8E6901F0E30F8003DD582 /* Main.storyboard */,
 				91F8E6931F0E30F8003DD582 /* Assets.xcassets */,
 				91F8E6951F0E30F8003DD582 /* LaunchScreen.storyboard */,
@@ -229,6 +234,7 @@
 				91F8E6861F0E30F7003DD582 /* AppDelegate.m in Sources */,
 				91F8E68F1F0E30F7003DD582 /* ModelController.m in Sources */,
 				91F8E6831F0E30F7003DD582 /* main.m in Sources */,
+				91F8E6B11F0E34AB003DD582 /* VideoMetadata.m in Sources */,
 				91F8E6891F0E30F7003DD582 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

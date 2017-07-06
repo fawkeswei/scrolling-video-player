@@ -10,6 +10,8 @@
 
 @interface DataViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *playerView;
+
 @end
 
 @implementation DataViewController
@@ -24,12 +26,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.dataLabel.text = [self.dataObject description];
-}
-
 
 @end
