@@ -62,7 +62,7 @@
                                     <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-eA-cZz">
                                         <rect key="frame" x="98" y="0.0" width="239" height="45"/>
                                         <connections>
-                                            <action selector="seek:" destination="S4R-Ja-viH" eventType="valueChanged" id="Wx7-U8-IdG"/>
+                                            <action selector="seek:" destination="S4R-Ja-viH" eventType="valueChanged" id="P8w-hX-cdA"/>
                                         </connections>
                                     </slider>
                                 </subviews>

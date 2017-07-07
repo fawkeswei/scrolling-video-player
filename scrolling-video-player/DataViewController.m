@@ -96,8 +96,16 @@ static void * PlayerContext = &PlayerContext;
 - (IBAction)seek:(UISlider *)slider {
     [self.player.currentItem cancelPendingSeeks];
     
+    if (self.player.timeControlStatus != AVPlayerTimeControlStatusPaused) {
+        [self.player pause];
+    }
+    
     CMTime time = CMTimeMake(slider.value, 1);
-    [self.player.currentItem seekToTime:time];
+    [self.player.currentItem seekToTime:time completionHandler:^(BOOL finished) {
+        if (finished) {
+            [self.player play];
+        }
+    }];
 }
 
 #pragma mark - KVO
