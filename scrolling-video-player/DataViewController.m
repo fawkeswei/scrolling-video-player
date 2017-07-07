@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *playbackSeekSlider;
 
 @property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic, strong) AVPlayerItem *playerItem;
 
 @property (nonatomic, strong) id periodicTimeObserver;
 
@@ -39,11 +38,11 @@ static void * PlayerContext = &PlayerContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.playerItem = [AVPlayerItem playerItemWithURL:self.dataObject.videoUrl];
-    [self.playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerItemContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:self.dataObject.videoUrl];
+    [playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerItemContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
     
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    self.player = [AVPlayer playerWithPlayerItem:playerItem];
     [self.player addObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&PlayerContext];
     
     __weak typeof(self) weakSelf = self;
@@ -154,8 +153,8 @@ static void * PlayerContext = &PlayerContext;
 }
 
 - (void)dealloc {
-    [self.playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
+    [self.player.currentItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
     [self.player removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeControlStatus))];
     [self.player removeTimeObserver:self.periodicTimeObserver];
 }
