@@ -22,6 +22,6 @@
 
 This demo supports iPhone running iOS 10
 
-[Link](https://appetize.io/app/kxhnjd972pqdjz2tqagmv65j04?osVersion=10.0)
+[Link](https://appetize.io/app/f2nfdjwc5d4ztaq0xajfbcyuzr?osVersion=10.0)
 
 *The service sometimes is slow, please allow 10~15 seconds to load up*
